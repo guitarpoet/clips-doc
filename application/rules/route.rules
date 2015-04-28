@@ -1,0 +1,6 @@
+(defrule set-the-controller-to-welcome-controller-if-no-controller-found
+	?c <- (controller "")
+	=>
+	(retract ?c)
+	(assert (controller "home"))
+)

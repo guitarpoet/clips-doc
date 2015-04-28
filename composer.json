@@ -1,0 +1,20 @@
+{
+    "name": "guitarpoet/clips-doc",
+    "description": "The Markdown Presentation Document Framework",
+    "authors": [
+        {
+            "name": "Jack",
+            "email": "guitarpoet@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+	"autoload": {
+		"psr-4": {
+			"Clips\\Doc\\": "application/"
+		}
+	},
+	"require": {
+		"php": ">=5.3.0",
+        "guitarpoet/clips-tool": "dev-master"
+	}
+}

@@ -1,0 +1,29 @@
+{
+	"table_prefix":"web_",
+	"namespace": ["Clips\\Doc\\"],
+	"route_rules": ["/application/rules/route.rules", "/rules/route.rules"],
+	"filters": ["Rules", "Form", "Scss", "Css", "SmartyView", "MustacheView", "JsonView", "DirectView"],
+	"helpers":["web", "html"],
+	"default_view": "Smarty",
+	"debug_sass": true,
+	"sass_preload": ["variables"],
+	"repository": "/Users/jack/Workbench/projects/clips-tool-doc",
+	"models": {
+	},
+	"logger": {
+		"handlers": {
+			"Stream" : ["php://stdin", "debug"],
+			"FirePHP" : ["debug"],
+			"ChromePHP": ["debug"], 
+			"RotatingFile": ["/tmp/clips-doc.log", 4, "debug"]
+		},
+		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
+	},
+	"datasources": {
+		"mysql": {
+			"table_prefix":"web_",
+			"type": "mysqli",
+			"database": "web_dev"
+		}
+	}
+}

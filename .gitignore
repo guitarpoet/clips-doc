@@ -1,0 +1,4 @@
+/vendor
+/application/cache
+*.swp
+*.swo
