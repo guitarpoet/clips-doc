@@ -9,27 +9,16 @@ use Clips\Controller;
  * @version 1.0
  * @date Mon Apr 27 15:19:17 2015
  *
- * @Clips\Widget({"html", "grid", "scaffold", "markup"})
+ * @Clips\Widget({"html", "grid", "scaffold", "markup", "navigation"})
+ * @Clips\Model({"doc", "navigation"})
  */
 class DocController extends Controller {
 
 	/**
 	 * @Clips\Library("repository")
 	 */
-	public function show($navi = '', $subnavi = '') {
-		$repo = \Clips\config('repository');
-		if(!$repo) {
-			throw new \Exception('No repository configured!');
-		}
-
-		$repo = $repo[0];
-		if(!file_exists($repo)) {
-			throw new \Exception('Repository ['.$repo.'] not exists!');
-		}
-		$this->repo = $this->repository->repo($repo);
-		$content = $this->repo->show(\Clips\path_join($navi, $subnavi).'.md');
-		if(!$content)
-			$content = $this->repo->show('Readme.md');
-		return $this->render('doc', array('content' => $content));
+	public function show() {
+		return $this->render('doc', array('content' => $this->doc->show(func_get_args()),
+		'actions' => $this->navigation->actions()));
 	}
 }

@@ -18,12 +18,5 @@
 			"RotatingFile": ["/tmp/clips-doc.log", 4, "debug"]
 		},
 		"processors": ["Git", "PsrLogMessage", "Introspection", "Tag"]
-	},
-	"datasources": {
-		"mysql": {
-			"table_prefix":"web_",
-			"type": "mysqli",
-			"database": "web_dev"
-		}
 	}
 }
