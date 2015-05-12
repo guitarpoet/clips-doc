@@ -9,7 +9,7 @@ use Clips\Controller;
  * @version 1.0
  * @date Mon Apr 27 15:19:17 2015
  *
- * @Clips\Widget({"html", "grid", "scaffold", "markup", "navigation"})
+ * @Clips\Widget({"html", "grid", "scaffold", "markup", "navigation", "highlightjs"})
  * @Clips\Model({"doc", "navigation"})
  */
 class DocController extends Controller {
@@ -18,7 +18,10 @@ class DocController extends Controller {
 	 * @Clips\Library("repository")
 	 */
 	public function show() {
+		$actions = $this->navigation->actions();
+		$title = $this->navigation->title();
+		$this->title($title);
 		return $this->render('doc', array('content' => $this->doc->show(func_get_args()),
-		'actions' => $this->navigation->actions()));
+		'actions' => $actions));
 	}
 }

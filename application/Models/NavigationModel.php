@@ -56,9 +56,10 @@ class NavigationModel extends Model implements LoggerAwareInterface, Initializab
 					$currentAction['content'] = $name;
 					$currentAction['children'] = array();
 					$currentAction['path'] = $cur->getPathname();
+					$currentAction['withArgs'] = true;
 				}
 				else
-					$currentAction = array('label' => $name, 'type' => 'server', 'content' => $name, 'children' => array(), 'path' => $cur->getPathname());
+					$currentAction = array('label' => $name, 'type' => 'server', 'content' => $name, 'children' => array(), 'path' => $cur->getPathname(), 'withArgs' => true);
 
 				if($actionStack) {
 					$action = array_pop($actionStack);
@@ -86,7 +87,7 @@ class NavigationModel extends Model implements LoggerAwareInterface, Initializab
 					$uri = 'doc/show/'.substr($uri, 0, strlen($uri) - 3); // Strip the .md extension
 					$name = $cur->getFileName();
 					$name = substr($name, 0, strlen($name) - 3);
-					$actionStack[count($actionStack) - 1]['children'] []= array('label' => $name, 'type' => 'server', 'content' => $uri);
+					$actionStack[count($actionStack) - 1]['children'] []= array('label' => $name, 'type' => 'server', 'content' => $uri, 'withArgs' => true);
 				}
 			}
 		}
@@ -101,6 +102,25 @@ class NavigationModel extends Model implements LoggerAwareInterface, Initializab
 
 	public function actions() {
 		return $this->_action->children();
+	}
+
+	protected function currentActionStack($actions, &$stack = array()) {
+		foreach($actions as $c) {
+			if($c->active()) {
+				$stack []= $c;
+				if($c->children()) {
+					$this->currentActionStack($c->children(), $stack);
+				}
+			}
+		}
+		return $stack;
+	}
+
+	public function title() {
+		if(!isset($this->_action))
+			return '';
+		$node_stack = $this->currentActionStack($this->_action->children());
+		return implode(' / ', array_map(function($item){ return $item->label(); }, $node_stack));
 	}
 
 	public function setLogger(LoggerInterface $logger) {

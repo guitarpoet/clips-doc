@@ -1,0 +1,13 @@
+{
+	"author": "Jack",
+	"date": "Tue May 12 16:36:29 2015",
+	"version": "1.0",
+	"name": "Highlightjs",
+	"doc":"The widget for highlight js.",
+	"js": {
+		"files": ["highlight.pack.js"]
+	},
+	"css": {
+		"files": ["default.css"]
+	}
+}
